@@ -2,7 +2,7 @@ from collections import namedtuple
 # If modifying these scopes, delete the file token.json.
 SCOPES = ["https://www.googleapis.com/auth/gmail.modify"]
 SUPPORTED_CLIENTS_MAP = {"GMAIL": "GmailClient"}
-VALID_LABELS = ["IMPORTANT", "INBOX", "UNREAD", "ARCHIVE"]
+VALID_LABELS = ["IMPORTANT", "INBOX", "STARRED"]
 RULES_VALIDATION_MAP = {
     "FROM" : {
         "PREDICATE" : ["CONTAINS","NOT_EQUAL"],

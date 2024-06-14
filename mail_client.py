@@ -2,7 +2,6 @@ import os.path
 from googleapiclient.errors import HttpError
 from utils.auth import GmailAuthenticator
 from constants import SCOPES,SUPPORTED_CLIENTS_MAP
-from utils.db_utils import DBUtils
 
 
 class EmailClient:

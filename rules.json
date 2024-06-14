@@ -19,6 +19,10 @@
     ],
     "action": {
         "move_to": [
+            "INBOX"
+        ],
+        "move_from": [
+            "STARRED",
             "IMPORTANT"
         ],
         "mark_as_read": true,

@@ -1,12 +1,11 @@
 from utils.db_utils import DBUtils
 from mail_client import EmailClient
 from constants import VALID_LABELS
-from utils.query_utils import QueryBuilder
 
-class EmailFilter:
-    def __init__(self) -> None:
-        self.client = EmailClient().get_client()
-        self.db = DBUtils()
+class EmailFetcher:
+    def __init__(self,db_instance=None,mail_client=None) -> None:
+        self.client = mail_client
+        self.db = db_instance
     def fetch_emails(self):
         labels = self.client.fetch_labels()
         ids = self.client.fetch_messages()

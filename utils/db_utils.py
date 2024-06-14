@@ -49,6 +49,8 @@ class DBUtils:
             self.cursor.execute(query)
         except Exception as e:
             print(e)
+        ids = self.cursor.fetchall()
+        return [id[0] for id in ids]
         
 
 

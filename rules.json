@@ -1,0 +1,27 @@
+{
+    "type": "any",
+    "rules": [
+        [
+            "from",
+            "not equal",
+            "random@gmail.com"
+        ],
+        [
+            "to",
+            "contains",
+            "random1@gmail.com"
+        ],
+        [
+            "date received",
+            "less than",
+            "1M"
+        ]
+    ],
+    "action": {
+        "move_to": [
+            "IMPORTANT"
+        ],
+        "mark_as_read": true,
+        "mark_as_unread": false
+    }
+}

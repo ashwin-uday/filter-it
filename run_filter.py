@@ -1,6 +1,7 @@
 from utils.db_utils import DBUtils
 from mail_client import EmailClient
 from constants import VALID_LABELS
+from utils.query_utils import QueryBuilder
 
 class EmailFilter:
     def __init__(self) -> None:
@@ -19,9 +20,3 @@ class EmailFilter:
         self.db.update_messages(new_data)
     def filter_emails(self,ids,target_label):
         self.client.update_messages(ids,[target_label],[])
-
-def main():
-    EmailFilter().fetch_emails()
-    print("Done fetching new emails")
-if __name__ == "__main__":
-    main()

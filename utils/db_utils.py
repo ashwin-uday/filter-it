@@ -44,7 +44,12 @@ class DBUtils:
             self.cursor.execute(query)
         except Exception as e:
             print(e)
-
+    def execute_query(self,query):
+        try:
+            self.cursor.execute(query)
+        except Exception as e:
+            print(e)
+        
 
 
         

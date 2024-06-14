@@ -4,7 +4,7 @@ from constants import VALID_LABELS
 
 class EmailFilter:
     def __init__(self) -> None:
-        self.client = EmailClient().__get_client()
+        self.client = EmailClient().get_client()
         self.db = DBUtils()
     def fetch_emails(self):
         labels = self.client.fetch_labels()
@@ -19,6 +19,9 @@ class EmailFilter:
         self.db.update_messages(new_data)
     def filter_emails(self,ids,target_label):
         self.client.update_messages(ids,[target_label],[])
-        
+
+def main():
+    EmailFilter().fetch_emails()
+    print("Done fetching new emails")
 if __name__ == "__main__":
     main()

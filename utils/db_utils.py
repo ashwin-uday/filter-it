@@ -1,6 +1,6 @@
 import psycopg2
 import os
-from config import DB_CONFIG as DEFAULT_CONFIG
+from utils.config import DB_CONFIG as DEFAULT_CONFIG
 class DBUtils:
     def __init__(self,config=os.environ.get("db_config",DEFAULT_CONFIG)) -> None:
         self.conn = psycopg2.connect(

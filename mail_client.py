@@ -17,7 +17,7 @@ class EmailClient:
             self.client = GmailClient()
         except Exception as e:
             print(e)
-    def __get_client(self):
+    def get_client(self):
         return self.client
 
 class GmailClient:

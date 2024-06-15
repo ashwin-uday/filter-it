@@ -4,7 +4,7 @@ from utils.config import DB_CONFIG as DEFAULT_CONFIG
 class DBUtils:
     def __init__(self,config=os.environ.get("db_config",DEFAULT_CONFIG)) -> None:
         self.conn = psycopg2.connect(
-                        database="emailclient",
+                        database=config["db_name"],
                         user=config["db_user"],
                         password=config["db_password"]
                     )

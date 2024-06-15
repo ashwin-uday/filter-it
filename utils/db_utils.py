@@ -15,7 +15,6 @@ class DBUtils:
             Insert into email(sender,receiver,subject,received_at,id) values (%s,%s,%s,%s,%s);
         """
         for row in data:
-            print(row)
             try:
                 self.cursor.execute(query,(row['From'],row['To'],row['Subject'],row['Date'],row['id']))
             except Exception as e:

@@ -37,6 +37,9 @@ class RuleParser:
                 final_results = set(final_results).union(set(res))
             else:
                 final_results = set(final_results).intersection(set(res))
+        if not final_results:
+            print("No messages found statisfying the condition")
+            return
         # Applies action on the final set of ids after union/interesection
         self.mail_client.update_messages(list(final_results),action.add_labels,action.remove_labels)
         

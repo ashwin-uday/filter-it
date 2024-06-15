@@ -1,15 +1,15 @@
 {
-    "type": "any",
+    "type": "all",
     "rules": [
         [
             "from",
-            "not equal",
-            "random@gmail.com"
+            "equal",
+            "no-reply@accounts.google.com"
         ],
         [
             "to",
             "contains",
-            "random1@gmail.com"
+            "ashwinudayakumartest@gmail.com"
         ],
         [
             "date received",
@@ -19,11 +19,9 @@
     ],
     "action": {
         "move_to": [
-            "INBOX"
+            "IMPORTANT"
         ],
         "move_from": [
-            "STARRED",
-            "IMPORTANT"
         ],
         "mark_as_read": true,
         "mark_as_unread": false

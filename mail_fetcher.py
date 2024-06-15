@@ -7,6 +7,8 @@ class EmailFetcher:
         self.client = mail_client
         self.db = db_instance
     def fetch_emails(self):
+        # Fetches all mail ids and compares it to the ids existing in database already.
+        # Fetches individual emails with content only for new ids.
         labels = self.client.fetch_labels()
         ids = self.client.fetch_messages()
         # Ignore existing emails from db and fetch only new emails via Gmail API
@@ -17,5 +19,3 @@ class EmailFetcher:
             message_data = self.client.get_message(id)
             new_data.append(message_data)
         self.db.update_messages(new_data)
-    def filter_emails(self,ids,target_label):
-        self.client.update_messages(ids,[target_label],[])

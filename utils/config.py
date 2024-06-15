@@ -1,4 +1,5 @@
 DB_CONFIG = {
-    "db_user":"appuser",
-    "db_password":"getmeinthere"
+    "db_name": "emailclient",
+    "db_user": "appuser",
+    "db_password": "getmeinthere",
 }

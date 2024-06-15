@@ -1,13 +1,14 @@
 import json
 from constants import RuleType,Rule,Action,VALID_LABELS
 from utils.query_utils import QueryBuilder
-class RuleUtils:
+class RuleParser:
     def __init__(self,rules_file="rules.json",db_instance="",mail_client="") -> None:
         self.config = json.load(open(rules_file)) 
         self.db = db_instance
         self.mail_client = mail_client
         self.query_builder = QueryBuilder()
     def parse_rules(self):
+        # Parses rules and actions, and converts them to a named tuple
         rule_type = RuleType(self.config["type"])
         rules = []
         for cur_rule in self.config["rules"]:
@@ -21,18 +22,22 @@ class RuleUtils:
         action = Action(add_labels,remove_labels)
         return rule_type,rules,action
     def apply_rules(self):
+        # Builds a query using the named tuples for actions and rules.
+        # Execute the query to fetch the list of ids that statisfy the rule.
         rule_type,rules,action = self.parse_rules()
         rule_results = []
         for rule in rules:
             query = self.query_builder.build_query(rule)
             result = self.db.execute_query(query)
             rule_results.append(result)
+        # Performs a union of ids for "Any" and an intersection for "All"
         final_results = rule_results[0]
         for res in rule_results[1:]:
             if rule_type.name == "any":
                 final_results = set(final_results).union(set(res))
             else:
                 final_results = set(final_results).intersection(set(res))
+        # Applies action on the final set of ids after union/interesection
         self.mail_client.update_messages(list(final_results),action.add_labels,action.remove_labels)
         
 

@@ -37,7 +37,6 @@ class GmailClient(EmailClient):
             message_data["id"] = id
             message_data["labels"] = labels
             return message_data
-            print(message_data)
         except HttpError as error:
             print(f"An error occurred: {error}")
     def fetch_messages(self):

@@ -1,19 +1,19 @@
 {
-    "type": "all",
+    "type": "ALL",
     "rules": [
         [
-            "from",
-            "equal",
+            "FROM",
+            "EQUAL",
             "no-reply@accounts.google.com"
         ],
         [
-            "to",
-            "contains",
+            "TO",
+            "CONTAINS",
             "ashwinudayakumartest@gmail.com"
         ],
         [
-            "date received",
-            "less than",
+            "DATE RECEIVED",
+            "LESS THAN",
             "1M"
         ]
     ],

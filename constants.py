@@ -4,15 +4,16 @@ from collections import namedtuple
 SCOPES = ["https://www.googleapis.com/auth/gmail.modify"]
 SUPPORTED_CLIENTS_MAP = {"GMAIL": "GmailClient"}
 FIELD_MAP = {
-    "from": "sender",
-    "to": "receiver",
-    "contains": "LIKE",
-    "not contains": "NOT",
-    "equal": "=",
-    "not equal": "<>",
-    "less than": ">",
-    "greater than": "<",
-    "date received": "received_at",
+    "FROM": "sender",
+    "TO": "receiver",
+    "CONTAINS": "LIKE",
+    "NOT CONTAINS": "NOT",
+    "EQUAL": "=",
+    "NOT EQUAL": "<>",
+    "LESS THAN": ">",
+    "GREATER THAN": "<",
+    "DATE RECEIVED": "received_at",
+    "SUBJECT": "subject"
 }
 RuleType = namedtuple("RuleType", ["name"])
 Action = namedtuple("Action", ["add_labels", "remove_labels"])
@@ -20,9 +21,11 @@ Rule = namedtuple("Rule", ["field", "predicate", "value"])
 DEFAULT_RULES_FILENAME = "rules.json"
 
 # Constants for validation and tests
-VALID_LABELS = ["IMPORTANT", "INBOX", "STARRED"]
+VALID_LABELS = ["IMPORTANT", "INBOX", "STARRED", "UNREAD"]
 RULES_VALIDATION_MAP = {
-    "FROM": {"PREDICATE": ["CONTAINS", "NOT_EQUAL"], "VALUE": lambda x: x.isalnum()},
-    "TO": {"PREDICATE": ["CONTAINS", "NOT_EQUAL"], "VALUE": lambda x: x.isalnum()},
-    "RECEIVED_AT": {"PREDICATE": ["<", ">"]},
+    "FROM": {"PREDICATE": ["CONTAINS", "NOT EQUAL","NOT CONTAINS","EQUAL"]},
+    "TO": {"PREDICATE": ["CONTAINS", "NOT EQUAL","NOT CONTAINS","EQUAL"]},
+    "SUBJECT": {"PREDICATE": ["CONTAINS", "NOT EQUAL","NOT CONTAINS","EQUAL"]},
+    "RECEIVED_AT": {"PREDICATE": ["less than", "greater than"]}
 }
+VALID_RULE_TYPES = ["ALL","ANY"]

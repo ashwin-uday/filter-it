@@ -7,6 +7,7 @@ class EmailFetcher:
         self.client = mail_client
         self.db = db_instance
     def clean_data(self,data):
+        # Parses fields and extracts the required information from the fields.
         email_fields = ["From","To"]
         for field in email_fields:
             cur_string = data[field]

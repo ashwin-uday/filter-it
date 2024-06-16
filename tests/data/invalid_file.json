@@ -1,0 +1,29 @@
+{
+    "type": "ALL"
+    "rules": [
+        [
+            "FROM",
+            "EQUAL",
+            "no-reply@accounts.google.com"
+        ],
+        [
+            "TO",
+            "NOT CONTAINS",
+            "ashwinudayakumartest@gmail.com"
+        ],
+        [
+            "DATE RECEIVED",
+            "LESS THAN",
+            "1M"
+        ]
+    ],
+    "action": {
+        "move_to": [
+            "IMPORTANT"
+        ],
+        "move_from": [
+        ],
+        "mark_as_read": true,
+        "mark_as_unread": false
+    }
+}

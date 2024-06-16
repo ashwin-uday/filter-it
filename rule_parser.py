@@ -1,9 +1,14 @@
 import json
 from constants import RuleType,Rule,Action,VALID_LABELS,RULES_VALIDATION_MAP,VALID_RULE_TYPES
 from utils.query_utils import QueryBuilder
+from json.decoder import JSONDecodeError
+
 class RuleParser:
     def __init__(self,rules_file="rules.json",db_instance="",mail_client="") -> None:
-        self.config = json.load(open(rules_file)) 
+        try:
+            self.config = json.load(open(rules_file)) 
+        except JSONDecodeError as e:
+            raise ValueError("JSON Decode failed. Improper file format")
         self.db = db_instance
         self.mail_client = mail_client
         self.query_builder = QueryBuilder()
@@ -22,8 +27,8 @@ class RuleParser:
                 add_labels.append("UNREAD")
             action = Action(add_labels,remove_labels)
             return rule_type,rules,action
-        except Exception as e:
-            raise Exception("Error while parsing rules json ",e)
+        except KeyError as e:
+            raise KeyError("Error while parsing rules json ",e)
     def validate_rules(self,rule_type,rules,action):
         # Validates the rules and action for right values and associations
         if rule_type.name not in VALID_RULE_TYPES:
@@ -60,7 +65,7 @@ class RuleParser:
                 print("No messages found statisfying the condition")
                 return
             # Applies action on the final set of ids after union/interesection
-            self.mail_client.update_messages(list(final_results),action.add_labels,action.remove_labels)
+            self.mail_client.update_messages(list(final_ids),action.add_labels,action.remove_labels)
         except (ValueError,Exception) as e:
             print(e)
         

@@ -8,6 +8,8 @@ class EmailFetcher:
         self.db = db_instance
     def clean_data(self,data):
         # Parses fields and extracts the required information from the fields.
+        if not data:
+            return []
         email_fields = ["From","To"]
         for field in email_fields:
             cur_string = data[field]
@@ -22,7 +24,7 @@ class EmailFetcher:
     def fetch_emails(self):
         # Fetches all mail ids and compares it to the ids existing in database already.
         # Fetches individual emails with content only for new ids.
-        labels = self.client.fetch_labels()
+        # labels = self.client.fetch_labels()
         ids = self.client.fetch_messages()
         # Ignore existing emails from db and fetch only new emails via Gmail API
         existing_ids = self.db.fetch_ids()
@@ -34,6 +36,7 @@ class EmailFetcher:
             new_data.append(message_data)
         if not new_ids:
             print("No new messages found")
-            return 
+            return []
         self.db.update_messages(new_data)
         print("Successfully fetched new messages")
+        return new_ids

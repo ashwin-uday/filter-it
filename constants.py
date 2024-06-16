@@ -31,6 +31,12 @@ RULES_VALIDATION_MAP = {
 VALID_RULE_TYPES = ["ALL","ANY"]
 
 # Test constants
+TEST_DATA_DIR = "tests/data/"
+# Rules json tests
+INVALID_JSON_STRUCTURE_FILE_NAME = "invalid_file.json"
+INVALID_JSON_KEYS_FILE_NAME = "invalid_keys.json"
+INVALID_JSON_VALUES_FILE_NAME = "invalid_values.json"
+
 
 
 

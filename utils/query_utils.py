@@ -8,6 +8,9 @@ class QueryBuilder:
         raw_query = """
             select id from email where {} {} '{}';
         """
+        raw_contains_query = """
+            select id from email where {} {} '%{}%';
+        """
         raw_date_query = """
             select id from email where {} {} {};
         """
@@ -20,6 +23,8 @@ class QueryBuilder:
             metric = "day" if days else "month"
             updated_value = "now() - interval '{} {}'".format(value,metric)
             raw_query = raw_date_query
+        elif "contains" in rule.predicate.lower():
+            raw_query = raw_contains_query
         query = raw_query.format(
             self.field_map[rule.field],
             self.field_map[rule.predicate],

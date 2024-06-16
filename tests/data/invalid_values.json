@@ -8,11 +8,11 @@
         ],
         [
             "TO",
-            "NOT CONTAINS",
+            "NOT HAVE",
             "ashwinudayakumartest@gmail.com"
         ],
         [
-            "DATE RECEIVED",
+            "DATE RECEIVEDD",
             "LESS THAN",
             "1M"
         ]

@@ -38,6 +38,8 @@ class RuleParser:
                 raise ValueError("Rules validation failed. Invalid rule name {}".format(rule.field))
             if rule.predicate not in RULES_VALIDATION_MAP[rule.field]["PREDICATE"]:
                 raise ValueError("Rules validation failed. Invalid predicte for field {}".format(rule.field))
+            if "DATE" in rule.field and (rule.value[-1] not in ["D","M"] or not rule.value[:-1].isdigit()):
+                raise ValueError("Rules validation failed. Invalid format for date use <count>D/M for days and months")
         if set(action.add_labels) - set(VALID_LABELS) or set(action.remove_labels) - set(VALID_LABELS):
             raise ValueError("Rules validation failed. Invalid labels")
         
@@ -57,7 +59,7 @@ class RuleParser:
             # Performs a union of ids for "Any" and an intersection for "All"
             final_ids = rule_results[0]
             for res in rule_results[1:]:
-                if rule_type.name == "any":
+                if rule_type.name == "ANY":
                     final_ids = set(final_ids).union(set(res))
                 else:
                     final_ids = set(final_ids).intersection(set(res))

@@ -1,12 +1,20 @@
 import psycopg2
-import os
+import os,json
 from utils.config import DB_CONFIG as DEFAULT_CONFIG
+
+# fetch username and password from environment, if not present use default config
+ENV_CONFIG = json.loads(os.environ.get("DB_CONFIG","{}"))
+if not ENV_CONFIG:
+    ENV_CONFIG = DEFAULT_CONFIG
+ENV = os.environ.get("ENV","DEV")
+CONFIG = ENV_CONFIG[ENV]
+
 class DBUtils:
-    def __init__(self,config=os.environ.get("db_config",DEFAULT_CONFIG)) -> None:
+    def __init__(self) -> None:
         self.conn = psycopg2.connect(
-                        database=config["db_name"],
-                        user=config["db_user"],
-                        password=config["db_password"]
+                        database=CONFIG["db_name"],
+                        user=CONFIG["db_user"],
+                        password=CONFIG["db_password"]
                     )
         self.cursor = self.conn.cursor()
         self.create_tables()

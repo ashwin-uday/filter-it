@@ -32,4 +32,8 @@ class EmailFetcher:
             message_data = self.client.get_message(id)
             self.clean_data(message_data)
             new_data.append(message_data)
+        if not new_ids:
+            print("No new messages found")
+            return 
         self.db.update_messages(new_data)
+        print("Successfully fetched new messages")

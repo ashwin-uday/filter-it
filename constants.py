@@ -7,7 +7,7 @@ FIELD_MAP = {
     "FROM": "sender",
     "TO": "receiver",
     "CONTAINS": "LIKE",
-    "NOT CONTAINS": "NOT",
+    "NOT CONTAINS": "NOT LIKE",
     "EQUAL": "=",
     "NOT EQUAL": "<>",
     "LESS THAN": ">",
@@ -20,12 +20,17 @@ Action = namedtuple("Action", ["add_labels", "remove_labels"])
 Rule = namedtuple("Rule", ["field", "predicate", "value"])
 DEFAULT_RULES_FILENAME = "rules.json"
 
-# Constants for validation and tests
+# Constants for validation
 VALID_LABELS = ["IMPORTANT", "INBOX", "STARRED", "UNREAD"]
 RULES_VALIDATION_MAP = {
     "FROM": {"PREDICATE": ["CONTAINS", "NOT EQUAL","NOT CONTAINS","EQUAL"]},
     "TO": {"PREDICATE": ["CONTAINS", "NOT EQUAL","NOT CONTAINS","EQUAL"]},
     "SUBJECT": {"PREDICATE": ["CONTAINS", "NOT EQUAL","NOT CONTAINS","EQUAL"]},
-    "RECEIVED_AT": {"PREDICATE": ["less than", "greater than"]}
+    "DATE RECEIVED": {"PREDICATE": ["LESS THAN", "GREATER THAN"]}
 }
 VALID_RULE_TYPES = ["ALL","ANY"]
+
+# Test constants
+
+
+

@@ -23,7 +23,7 @@ class RuleParser:
             action = Action(add_labels,remove_labels)
             return rule_type,rules,action
         except Exception as e:
-            print("Error while parsing rules json ",e)
+            raise Exception("Error while parsing rules json ",e)
     def validate_rules(self,rule_type,rules,action):
         # Validates the rules and action for right values and associations
         if rule_type.name not in VALID_RULE_TYPES:
@@ -40,7 +40,9 @@ class RuleParser:
         # Builds a query using the named tuples for actions and rules.
         # Execute the query to fetch the list of ids that statisfy the rule.
         try:
+            print("Parsing entries from rules file...")
             rule_type,rules,action = self.parse_rules()
+            print("Validating rules...")
             self.validate_rules(rule_type,rules,action)
             rule_results = []
             for rule in rules:
@@ -48,13 +50,13 @@ class RuleParser:
                 result = self.db.execute_query(query)
                 rule_results.append(result)
             # Performs a union of ids for "Any" and an intersection for "All"
-            final_results = rule_results[0]
+            final_ids = rule_results[0]
             for res in rule_results[1:]:
                 if rule_type.name == "any":
-                    final_results = set(final_results).union(set(res))
+                    final_ids = set(final_ids).union(set(res))
                 else:
-                    final_results = set(final_results).intersection(set(res))
-            if not final_results:
+                    final_ids = set(final_ids).intersection(set(res))
+            if not final_ids:
                 print("No messages found statisfying the condition")
                 return
             # Applies action on the final set of ids after union/interesection
